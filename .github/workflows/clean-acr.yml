@@ -5,7 +5,7 @@ name: Clean ACR
 # as well as adding it with Get and List permissions in the key vault's access policies.
 # Then we need to store that service principal's info as a GitHub secret.
 # We then use that secret here as the credentials for logging into Azure.
-# Instructions are here: https://learn.microsoft.com/en-us/azure/developer/github/github-key-vault
+# Instructions are here: https://learn.microsoft.com/azure/developer/github/github-key-vault
 # In our case, the service principal is called synapseml-clean-acr.
 # The github secret is a repository secret called clean_acr.
 # It is backed up in the mmlspark-keys vault by secret clean-acr-github-actions-info.

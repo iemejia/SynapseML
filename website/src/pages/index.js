@@ -250,7 +250,7 @@ function Home() {
               </p>
               <p>
                 Note: SynapseML is built-in for{" "}
-                <a href="https://learn.microsoft.com/en-us/azure/synapse-analytics/spark/apache-spark-33-runtime">
+                <a href="https://learn.microsoft.com/azure/synapse-analytics/spark/apache-spark-33-runtime">
                   Azure Synapse Analytics.
                 </a>
               </p>

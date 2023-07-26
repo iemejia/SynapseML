@@ -313,7 +313,7 @@ trait MADBase extends HasOutputCol with TimeConverter
       throw new IllegalArgumentException("improper HDFS loacation. Please use a wasb path such as: \n" +
         "wasbs://[CONTAINER]@[ACCOUNT].blob.core.windows.net/[DIRECTORY]" +
         "For more information on connecting storage accounts to spark visit " +
-        "https://docs.microsoft.com/en-us/azure/databricks/data/data-sources" +
+        "https://docs.microsoft.com/azure/databricks/data/data-sources" +
         "/azure/azure-storage#--access-azure-data-lake-storage-gen2-or-blob-storage-using-the-account-key"
       )
     }

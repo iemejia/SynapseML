@@ -17,7 +17,7 @@ import TabItem from '@theme/TabItem';
 
 To start building .NET apps, you need to download and install the .NET SDK (Software Development Kit).
 
-Download and install the [.NET Core SDK](https://dotnet.microsoft.com/en-us/download/dotnet/3.1).
+Download and install the [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet/3.1).
 Installing the SDK adds the dotnet toolchain to your PATH.
 
 Once you've installed the .NET Core SDK, open a new command prompt or terminal. Then run `dotnet`.
@@ -198,7 +198,7 @@ namespace SynapseMLApp
     }
 }
 ```
-[SparkSession](https://docs.microsoft.com/en-us/dotnet/api/microsoft.spark.sql.sparksession?view=spark-dotnet) is the entrypoint
+[SparkSession](https://docs.microsoft.com/dotnet/api/microsoft.spark.sql.sparksession?view=spark-dotnet) is the entrypoint
 of Apache Spark applications, which manages the context and information of your application. A DataFrame is a way of organizing
 data into a set of named columns.
 
@@ -242,6 +242,6 @@ Refer to the [developer docs](https://mmlspark.blob.core.windows.net/docs/0.11.2
 
 ## Next
 
-* Refer to this [tutorial](https://docs.microsoft.com/en-us/dotnet/spark/tutorials/databricks-deployment) for deploying a .NET app to Databricks.
+* Refer to this [tutorial](https://docs.microsoft.com/dotnet/spark/tutorials/databricks-deployment) for deploying a .NET app to Databricks.
 * You could download compatible [install-worker.sh](https://mmlspark.blob.core.windows.net/publicwasb/dotnet/install-worker.sh)
 and [db-init.sh](https://mmlspark.blob.core.windows.net/publicwasb/dotnet/db-init.sh) files needed for deployment on Databricks.

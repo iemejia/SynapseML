@@ -35,7 +35,7 @@ To log model with Mlflow, you need to create an Azure Machine Learning workspace
 
 #### Create Azure Machine Learning Workspace
 
-Follow this document to create [AML workspace](https://learn.microsoft.com/en-us/azure/machine-learning/quickstart-create-resources#create-the-workspace). You don't need to create compute instance and compute clusters.
+Follow this document to create [AML workspace](https://learn.microsoft.com/azure/machine-learning/quickstart-create-resources#create-the-workspace). You don't need to create compute instance and compute clusters.
 
 #### Create an Azure ML Linked Service
 

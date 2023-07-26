@@ -6,7 +6,7 @@ keywords: [
 ]
 ---
 
-<img src="https://www.microsoft.com/en-us/research/uploads/prod/2019/09/Mark-Hamilton_Podcast_Site_09_2019_1400x788.png" />
+<img src="https://www.microsoft.com/research/uploads/prod/2019/09/Mark-Hamilton_Podcast_Site_09_2019_1400x788.png" />
 
 <h4>Episode 92, October 2, 2019</h4>
 
@@ -14,4 +14,4 @@ If someone asked you what snow leopards and Vincent Van Gogh have in common, you
 
 Today, Mark talks about his love of mathematics and his desire to solve big, crazy, core knowledge-sized problems. He tells us all about MMLSpark and how it’s being used by organizations like the Snow Leopard Trust and the Metropolitan Museum of Art. And he reveals how the persuasive advice of a really smart big sister helped launch an exciting career in AI research and development.
 
-[Read More](https://www.microsoft.com/en-us/research/podcast/mmlspark-empowering-ai-for-good-with-mark-hamilton/)
+[Read More](https://www.microsoft.com/research/podcast/mmlspark-empowering-ai-for-good-with-mark-hamilton/)

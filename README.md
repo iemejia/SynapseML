@@ -293,9 +293,9 @@ better integrate with intellij and SBT.
 
 [the Spark+AI European Summit 2018]: https://youtu.be/N3ozCZXeOeU?t=472
 
-[help endangered species]: https://www.microsoft.com/en-us/ai/ai-lab-stories?activetab=pivot1:primaryr3 "Identifying snow leopards with AI"
+[help endangered species]: https://www.microsoft.com/ai/ai-lab-projects?activetab=pivot1:primaryr3 "Identifying snow leopards with AI"
 
-[our collaboration with The MET and MIT]: https://www.microsoft.com/en-us/ai/ai-lab-stories?activetab=pivot1:primaryr4 "Generative art at the MET"
+[our collaboration with The MET and MIT]: https://www.microsoft.com/ai/ai-lab-projects?activetab=pivot1:primaryr4 "Generative art at the MET"
 
 [our collaboration with Apache Spark]: https://blogs.technet.microsoft.com/machinelearning/2018/03/05/image-data-support-in-apache-spark/ "Image Data Support in Apache Spark"
 

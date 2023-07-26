@@ -26,7 +26,7 @@ Note:
 
 1. Install latest MLflow via `%pip install mlflow`
 2. Upload your customized `log_model_allowlist.txt` file to dbfs by clicking File/Upload Data button on Databricks UI.
-3. Set Cluster Spark configuration following [this documentation](https://docs.microsoft.com/en-us/azure/databricks/clusters/configure#spark-configuration)
+3. Set Cluster Spark configuration following [this documentation](https://docs.microsoft.com/azure/databricks/clusters/configure#spark-configuration)
 ```
 spark.mlflow.pysparkml.autolog.logModelAllowlistFile /dbfs/FileStore/PATH_TO_YOUR/log_model_allowlist.txt
 ```

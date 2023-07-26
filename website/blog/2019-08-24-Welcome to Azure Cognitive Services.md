@@ -12,4 +12,4 @@ Today at Spark + AI Summit 2019, we're excited to introduce a new set of models 
 
 From image recognition to object detection using speech recognition, translation, and text-to-speech, Azure Cognitive Services makes it easy for developers to add intelligent capabilities to their applications in any scenario. To this date, more than a million developers have already discovered and tried Cognitive Services to accelerate breakthrough experiences in their application.
 
-[Read More](https://azure.microsoft.com/en-us/blog/dear-spark-developers-welcome-to-azure-cognitive-services/)
+[Read More](https://azure.microsoft.com/blog/dear-spark-developers-welcome-to-azure-cognitive-services/)

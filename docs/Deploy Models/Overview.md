@@ -186,8 +186,8 @@ We have included settings to automatically configure this SSH tunneling for conv
 
 ##### Linux Gateway Setup - Azure
 
-1.  [Create a Linux VM using SSH](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal)
-2.  [Open ports 8000-9999 from the Azure portal](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/nsg-quickstart-portal)
+1.  [Create a Linux VM using SSH](https://docs.microsoft.com/azure/virtual-machines/linux/quick-create-portal)
+2.  [Open ports 8000-9999 from the Azure portal](https://docs.microsoft.com/azure/virtual-machines/windows/nsg-quickstart-portal)
 3.  Open the port on the firewall on the VM
     ```$xslt
     firewall-cmd --zone=public --add-port=8000-10000/tcp --permanent
@@ -195,7 +195,7 @@ We have included settings to automatically configure this SSH tunneling for conv
     echo "GatewayPorts yes" >> /etc/ssh/sshd_config
     service ssh --full-restart
     ```
-4.  Add your private key to a private container in [Azure Storage Blob](https://docs.microsoft.com/en-us/azure/storage/common/storage-quickstart-create-account?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=portal).
+4.  Add your private key to a private container in [Azure Storage Blob](https://docs.microsoft.com/azure/storage/common/storage-quickstart-create-account?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=portal).
 5.  Generate a SAS link for your key and save it.
 6.  Include the following parameters on your reader to configure the SSH tunneling:
         serving_inputs = (spark.readStream.continuousServer()

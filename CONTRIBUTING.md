@@ -45,7 +45,7 @@ this process:
 
 #### Implement tests
 
--   Set up build environment using the [developer guide](https://microsoft.github.io/SynapseML/docs/reference/developer-readme/)
+-   Set up build environment using the [developer guide](https://microsoft.github.io/SynapseML/docs/Reference/Developer%20Setup/)
 -   Test your code locally.
 -   Add tests using ScalaTests — unit tests are required.
 -   A sample notebook is required as an end-to-end test.
@@ -62,7 +62,7 @@ this process:
 
 -   In most cases, you should squash your commits into one.
 -   Open a pull request, and link it to the discussion issue you created earlier.
--   An SynapseML core team member will trigger a build to test your changes.
+-   A SynapseML core team member will trigger a build to test your changes.
 -   Fix any build failures.  (The pull request will have comments from the build
     with useful links.)
 -   Wait for code reviews from core team members and others.

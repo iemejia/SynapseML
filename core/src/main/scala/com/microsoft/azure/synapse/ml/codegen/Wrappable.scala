@@ -11,10 +11,9 @@ import org.apache.spark.ml.evaluation.Evaluator
 import org.apache.spark.ml.param._
 import org.apache.spark.ml.{Estimator, Model, Transformer}
 
-import java.lang.reflect.ParameterizedType
+import scala.reflect.runtime.universe._
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
-import scala.collection.Iterator.iterate
 
 
 trait BaseWrappable extends Params {
@@ -28,19 +27,24 @@ trait BaseWrappable extends Params {
 
   protected lazy val classNameHelper: String = thisStage.getClass.getName.split(".".toCharArray).last
 
+
   protected def companionModelClassName: String = {
-    val superClass = iterate[Class[_]](thisStage.getClass)(_.getSuperclass)
-      .find(c => Set("Estimator", "ProbabilisticClassifier", "Predictor", "BaseRegressor", "Ranker")(
-        c.getSuperclass.getSimpleName))
-      .get
-    val typeArgs = thisStage.getClass.getGenericSuperclass.asInstanceOf[ParameterizedType].getActualTypeArguments
-    val modelTypeArg = superClass.getSuperclass.getSimpleName match {
-      case "Estimator" =>
-        typeArgs.head
-      case model if Set("ProbabilisticClassifier", "BaseRegressor", "Predictor", "Ranker")(model) =>
-        typeArgs.last
+    val symbol = scala.reflect.runtime.currentMirror.classSymbol(thisStage.getClass)
+
+    val superClassSymbol = symbol.baseClasses
+      .find(s => Set("Estimator", "ProbabilisticClassifier", "Predictor", "BaseRegressor", "Ranker")
+        .contains(s.name.toString))
+      .getOrElse(throw new NoSuchElementException("Matching superclass was not found: " + symbol.baseClasses))
+
+    val typeArgs = symbol.toType.baseType(superClassSymbol).typeArgs
+
+    val modelTypeArg = superClassSymbol.name.toString match {
+      case "Estimator" => typeArgs.head
+      case _ => typeArgs.last
     }
-    modelTypeArg.getTypeName
+
+    val modelName = modelTypeArg.typeSymbol.asClass.fullName
+    modelName
   }
 
   def getParamInfo(p: Param[_]): ParamInfo[_] = {
@@ -148,11 +152,29 @@ trait PythonWrappable extends BaseWrappable {
           |""".stripMargin
     // scalastyle:off line.size.limit
     p match {
-      case _: ServiceParam[_] =>
+      case sp: ServiceParam[_] =>
         s"""|def set$capName(self, value):
             |${indent(docString, 1)}
             |    if isinstance(value, list):
             |        value = SparkContext._active_spark_context._jvm.com.microsoft.azure.synapse.ml.param.ServiceParam.toSeq(value)
+            |    elif isinstance(value, dict):
+            |        # Recursively convert Python dict/list to Java LinkedHashMap/ArrayList to preserve order
+            |        sc = SparkContext._active_spark_context
+            |        jvm = sc._jvm
+            |        def _convert(val):
+            |            if isinstance(val, dict):
+            |                jmap = jvm.java.util.LinkedHashMap()
+            |                for k, v in val.items():
+            |                    jmap.put(k, _convert(v))
+            |                return jmap
+            |            elif isinstance(val, list):
+            |                jlist = jvm.java.util.ArrayList()
+            |                for it in val:
+            |                    jlist.add(_convert(it))
+            |                return jlist
+            |            else:
+            |                return val
+            |        value = jvm.com.microsoft.azure.synapse.ml.param.ServiceParam.toMap(_convert(value))
             |    self._java_obj = self._java_obj.set$capName(value)
             |    return self
             |
@@ -486,4 +508,4 @@ trait RWrappable extends BaseWrappable {
 
 }
 
-trait Wrappable extends PythonWrappable with RWrappable with DotnetWrappable
+trait Wrappable extends PythonWrappable with RWrappable

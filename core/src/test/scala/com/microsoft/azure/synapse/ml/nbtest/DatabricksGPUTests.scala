@@ -3,25 +3,31 @@
 
 package com.microsoft.azure.synapse.ml.nbtest
 
-import com.microsoft.azure.synapse.ml.build.BuildInfo
-import com.microsoft.azure.synapse.ml.core.env.FileUtilities
 import com.microsoft.azure.synapse.ml.nbtest.DatabricksUtilities._
 
-import java.io.File
-import scala.collection.mutable.ListBuffer
+// Split GPU tests into separate classes so they run as parallel ADO matrix entries.
+// Each creates its own cluster because Horovod fine-tuning uses all workers.
 
-class DatabricksGPUTests extends DatabricksTestHelper {
-  val horovodInstallationScript: File = FileUtilities.join(
-    BuildInfo.baseDirectory.getParent, "deep-learning",
-    "src", "main", "python", "horovod_installation.sh").getCanonicalFile
-  uploadFileToDBFS(horovodInstallationScript, "/FileStore/horovod-fix-commit/horovod_installation.sh")
-  val clusterId: String = createClusterInPool(GPUClusterName, AdbGpuRuntime, 2, GpuPoolId, GPUInitScripts)
-  val jobIdsToCancel: ListBuffer[Int] = databricksTestHelper(
-    clusterId, GPULibraries, GPUNotebooks)
+class DatabricksGPUTests1 extends DatabricksTestHelper {
+  private val gpuTimeoutMs = 30 * 60 * 1000
+  private val clusterName = s"mmlspark-build-gpu1-${java.time.LocalDateTime.now()}"
+  val clusterId: String = createClusterInPool(clusterName, AdbGpuRuntime, 2, GpuPoolId)
+  databricksTestHelper(clusterId, GPULibraries, gpuNotebook(0), 1, List(), gpuTimeoutMs)
+  protected override def afterAll(): Unit = { afterAllHelper(clusterId, clusterName); super.afterAll() }
+}
 
-  protected override def afterAll(): Unit = {
-    afterAllHelper(jobIdsToCancel, clusterId, GPUClusterName)
-    super.afterAll()
-  }
+class DatabricksGPUTests2 extends DatabricksTestHelper {
+  private val gpuTimeoutMs = 30 * 60 * 1000
+  private val clusterName = s"mmlspark-build-gpu2-${java.time.LocalDateTime.now()}"
+  val clusterId: String = createClusterInPool(clusterName, AdbGpuRuntime, 2, GpuPoolId)
+  databricksTestHelper(clusterId, GPULibraries, gpuNotebook(1), 1, List(), gpuTimeoutMs)
+  protected override def afterAll(): Unit = { afterAllHelper(clusterId, clusterName); super.afterAll() }
+}
 
+class DatabricksGPUTests3 extends DatabricksTestHelper {
+  private val gpuTimeoutMs = 30 * 60 * 1000
+  private val clusterName = s"mmlspark-build-gpu3-${java.time.LocalDateTime.now()}"
+  val clusterId: String = createClusterInPool(clusterName, AdbGpuRuntime, 2, GpuPoolId)
+  databricksTestHelper(clusterId, GPULibraries, gpuNotebook(2), 1, List(), gpuTimeoutMs)
+  protected override def afterAll(): Unit = { afterAllHelper(clusterId, clusterName); super.afterAll() }
 }

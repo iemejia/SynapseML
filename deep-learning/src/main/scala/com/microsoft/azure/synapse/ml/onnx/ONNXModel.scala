@@ -11,7 +11,7 @@ import com.microsoft.azure.synapse.ml.codegen.Wrappable
 import com.microsoft.azure.synapse.ml.core.env.StreamUtilities.using
 import com.microsoft.azure.synapse.ml.core.schema.DatasetExtensions
 import com.microsoft.azure.synapse.ml.core.utils.BreezeUtils._
-import com.microsoft.azure.synapse.ml.logging.SynapseMLLogging
+import com.microsoft.azure.synapse.ml.logging.{FeatureNames, SynapseMLLogging}
 import com.microsoft.azure.synapse.ml.onnx.ONNXRuntime._
 import com.microsoft.azure.synapse.ml.onnx.ONNXUtils._
 import com.microsoft.azure.synapse.ml.param.{ByteArrayParam, StringStringMapParam}
@@ -24,7 +24,7 @@ import org.apache.spark.ml.linalg.{SQLDataTypes, Vector}
 import org.apache.spark.ml.param._
 import org.apache.spark.ml.util.Identifiable
 import org.apache.spark.sql._
-import org.apache.spark.sql.catalyst.encoders.RowEncoder
+import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.types._
 import org.apache.spark.{SparkContext, TaskContext}
@@ -151,7 +151,7 @@ class ONNXModel(override val uid: String)
 
   override protected lazy val pyInternalWrapper = true
 
-  logClass()
+  logClass(FeatureNames.DeepLearning)
 
   def this() = this(Identifiable.randomUID("ONNXModel"))
 
@@ -230,7 +230,7 @@ class ONNXModel(override val uid: String)
   def transformInner(dataset: Dataset[_], inputSchema: StructType): DataFrame = logTransform ({
     val modelOutputSchema = getModelOutputSchema(inputSchema)
 
-    implicit val enc: Encoder[Row] = RowEncoder(
+    implicit val enc: Encoder[Row] = ExpressionEncoder(
       StructType(modelOutputSchema.map(f => StructField(f.name, ArrayType(f.dataType))))
     )
 

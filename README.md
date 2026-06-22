@@ -6,15 +6,16 @@ SynapseML (previously known as MMLSpark), is an open-source library that simplif
 
 With SynapseML, you can build scalable and intelligent systems to solve challenges in domains such as anomaly detection, computer vision, deep learning, text analytics, and others. SynapseML can train and evaluate models on single-node, multi-node, and elastically resizable clusters of computers. This lets you scale your work without wasting resources. SynapseML is usable across Python, R, Scala, Java, and .NET. Furthermore, its API abstracts over a wide variety of databases, file systems, and cloud data stores to simplify experiments no matter where data is located.
 
-SynapseML requires Scala 2.12, Spark 3.2+, and Python 3.8+. 
+SynapseML requires Scala 2.12, Spark 3.4+, and Python 3.8+.  
 
 | Topics  | Links                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Build   | [![Build Status](https://msdata.visualstudio.com/A365/_apis/build/status/microsoft.SynapseML?branchName=master)](https://msdata.visualstudio.com/A365/_build/latest?definitionId=17563&branchName=master) [![codecov](https://codecov.io/gh/Microsoft/SynapseML/branch/master/graph/badge.svg)](https://codecov.io/gh/Microsoft/SynapseML) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)                     |
-| Version | [![Version](https://img.shields.io/badge/version-0.11.2-blue)](https://github.com/Microsoft/SynapseML/releases) [![Release Notes](https://img.shields.io/badge/release-notes-blue)](https://github.com/Microsoft/SynapseML/releases) [![Snapshot Version](https://mmlspark.blob.core.windows.net/icons/badges/master_version3.svg)](#sbt)                                                                                                                                       |
-| Docs    | [![Scala Docs](https://img.shields.io/static/v1?label=api%20docs&message=scala&color=blue&logo=scala)](https://mmlspark.blob.core.windows.net/docs/0.11.2/scala/index.html#package) [![PySpark Docs](https://img.shields.io/static/v1?label=api%20docs&message=python&color=blue&logo=python)](https://mmlspark.blob.core.windows.net/docs/0.11.2/pyspark/index.html) [![Academic Paper](https://img.shields.io/badge/academic-paper-7fdcf7)](https://arxiv.org/abs/1810.08744) |
+| Version | [![Version](https://img.shields.io/badge/version-1.1.3-blue)](https://github.com/Microsoft/SynapseML/releases) [![Release Notes](https://img.shields.io/badge/release-notes-blue)](https://github.com/Microsoft/SynapseML/releases) [![Snapshot Version](https://mmlspark.blob.core.windows.net/icons/badges/master_version3.svg)](#sbt)                                                                                                                                       |
+| Docs    | [![Website](https://img.shields.io/badge/SynapseML-Website-blue)](https://aka.ms/spark) [![Scala Docs](https://img.shields.io/static/v1?label=api%20docs&message=scala&color=blue&logo=scala)](https://mmlspark.blob.core.windows.net/docs/1.1.3/scala/index.html#package) [![PySpark Docs](https://img.shields.io/static/v1?label=api%20docs&message=python&color=blue&logo=python)](https://mmlspark.blob.core.windows.net/docs/1.1.3/pyspark/index.html) [![Academic Paper](https://img.shields.io/badge/academic-paper-7fdcf7)](https://arxiv.org/abs/1810.08744) |
 | Support | [![Gitter](https://badges.gitter.im/Microsoft/MMLSpark.svg)](https://gitter.im/Microsoft/MMLSpark?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Mail](https://img.shields.io/badge/mail-synapseml--support-brightgreen)](mailto:synapseml-support@microsoft.com)                                                                                                                                                                                                  |
-| Binder  | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/microsoft/SynapseML/v0.11.2?labpath=notebooks%2Ffeatures)                                                                                                                                                                                                                                                                                                                                           |
+| Binder  | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/microsoft/SynapseML/v1.1.3?labpath=notebooks%2Ffeatures)                                                                                                                                                                                                                                                                                                                                           |
+| Usage | [![Downloads](https://static.pepy.tech/badge/synapseml)](https://pepy.tech/project/synapseml) |
 <!-- markdownlint-disable MD033 -->
 <details open>
 <summary>
@@ -25,16 +26,15 @@ SynapseML requires Scala 2.12, Spark 3.2+, and Python 3.8+.
   - [Features](#features)
   - [Documentation and Examples](#documentation-and-examples)
   - [Setup and installation](#setup-and-installation)
+    - [Microsoft Fabric](#microsoft-fabric)
     - [Synapse Analytics](#synapse-analytics)
     - [Databricks](#databricks)
-    - [Microsoft Fabric](#microsoft-fabric)
     - [Python Standalone](#python-standalone)
     - [Spark Submit](#spark-submit)
     - [SBT](#sbt)
     - [Apache Livy and HDInsight](#apache-livy-and-hdinsight)
     - [Docker](#docker)
     - [R](#r)
-    - [C# (.NET)](#c-net)
     - [Building from source](#building-from-source)
   - [Papers](#papers)
   - [Learn More](#learn-more)
@@ -71,30 +71,39 @@ For quickstarts, documentation, demos, and examples please see our [website](htt
 
 First select the correct platform that you are installing SynapseML into:
 <!--ts-->
-- [Synapse Analytics](#synapse-analytics)
-- [Databricks](#databricks)
-- [Python Standalone](#python-standalone)
-- [Spark Submit](#spark-submit)
-- [SBT](#sbt)
-- [Apache Livy and HDInsight](#apache-livy-and-hdinsight)
-- [Docker](#docker)
-- [R](#r)
-- [C# (.NET)](#c-net)
-- [Building from source](#building-from-source)
+- [Synapse Machine Learning](#synapse-machine-learning)
+  - [Features](#features)
+  - [Documentation and Examples](#documentation-and-examples)
+  - [Setup and installation](#setup-and-installation)
+    - [Microsoft Fabric](#microsoft-fabric)
+    - [Synapse Analytics](#synapse-analytics)
+    - [Databricks](#databricks)
+    - [Python Standalone](#python-standalone)
+    - [Spark Submit](#spark-submit)
+    - [SBT](#sbt)
+    - [Apache Livy and HDInsight](#apache-livy-and-hdinsight)
+    - [Docker](#docker)
+    - [R](#r)
+    - [Building from source](#building-from-source)
+  - [Papers](#papers)
+  - [Learn More](#learn-more)
+  - [Contributing \& feedback](#contributing--feedback)
+  - [Other relevant projects](#other-relevant-projects)
 <!--te-->
 
-### Synapse Analytics
 
-In Azure Synapse notebooks please place the following in the first cell of your notebook. 
 
-- For Spark 3.3 Pools:
+### Microsoft Fabric
+
+In Microsoft Fabric notebooks SynapseML is already installed. To change the version please place the following in the first cell of your notebook.
+
 
 ```bash
 %%configure -f
 {
   "name": "synapseml",
   "conf": {
-      "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:0.11.2-spark3.3",
+      "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:<THE_SYNAPSEML_VERSION_YOU_WANT>",
       "spark.jars.repositories": "https://mmlspark.azureedge.net/maven",
       "spark.jars.excludes": "org.scala-lang:scala-reflect,org.apache.spark:spark-tags_2.12,org.scalactic:scalactic_2.12,org.scalatest:scalatest_2.12,com.fasterxml.jackson.core:jackson-databind",
       "spark.yarn.user.classpath.first": "true",
@@ -103,22 +112,61 @@ In Azure Synapse notebooks please place the following in the first cell of your 
 }
 ```
 
-- For Spark 3.2 Pools:
+
+
+
+### Synapse Analytics
+
+In Azure Synapse notebooks please place the following in the first cell of your notebook. 
+
+- For Spark 3.5 Pools:
 
 ```bash
 %%configure -f
 {
   "name": "synapseml",
   "conf": {
-      "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:0.11.2,org.apache.spark:spark-avro_2.12:3.3.1",
+      "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:1.1.3",
       "spark.jars.repositories": "https://mmlspark.azureedge.net/maven",
       "spark.jars.excludes": "org.scala-lang:scala-reflect,org.apache.spark:spark-tags_2.12,org.scalactic:scalactic_2.12,org.scalatest:scalatest_2.12,com.fasterxml.jackson.core:jackson-databind",
       "spark.yarn.user.classpath.first": "true",
-      "spark.sql.parquet.enableVectorizedReader": "false",
-      "spark.sql.legacy.replaceDatabricksSparkAvro.enabled": "true"
+      "spark.sql.parquet.enableVectorizedReader": "false"
   }
 }
 ```
+
+- For Spark 3.4 Pools:
+
+```bash
+%%configure -f
+{
+  "name": "synapseml",
+  "conf": {
+      "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:1.0.15",
+      "spark.jars.repositories": "https://mmlspark.azureedge.net/maven",
+      "spark.jars.excludes": "org.scala-lang:scala-reflect,org.apache.spark:spark-tags_2.12,org.scalactic:scalactic_2.12,org.scalatest:scalatest_2.12,com.fasterxml.jackson.core:jackson-databind",
+      "spark.yarn.user.classpath.first": "true",
+      "spark.sql.parquet.enableVectorizedReader": "false"
+  }
+}
+```
+
+- For Spark 3.3 Pools:
+
+```bash
+%%configure -f
+{
+  "name": "synapseml",
+  "conf": {
+      "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:0.11.4-spark3.3",
+      "spark.jars.repositories": "https://mmlspark.azureedge.net/maven",
+      "spark.jars.excludes": "org.scala-lang:scala-reflect,org.apache.spark:spark-tags_2.12,org.scalactic:scalactic_2.12,org.scalatest:scalatest_2.12,com.fasterxml.jackson.core:jackson-databind",
+      "spark.yarn.user.classpath.first": "true",
+      "spark.sql.parquet.enableVectorizedReader": "false"
+  }
+}
+```
+
 
 
 To install at the pool level instead of the notebook level [add the spark properties listed above to the pool configuration](https://techcommunity.microsoft.com/t5/azure-synapse-analytics-blog/how-to-set-spark-pyspark-custom-configs-in-synapse-workspace/ba-p/2114434).
@@ -130,7 +178,7 @@ cloud](http://community.cloud.databricks.com), create a new [library from Maven
 coordinates](https://docs.databricks.com/user-guide/libraries.html#libraries-from-maven-pypi-or-spark-packages)
 in your workspace.
 
-For the coordinates use: `com.microsoft.azure:synapseml_2.12:0.11.2`
+For the coordinates use: `com.microsoft.azure:synapseml_2.12:1.1.3`
 with the resolver: `https://mmlspark.azureedge.net/maven`. Ensure this library is
 attached to your target cluster(s).
 
@@ -138,44 +186,7 @@ Finally, ensure that your Spark cluster has at least Spark 3.2 and Scala 2.12. I
 
 You can use SynapseML in both your Scala and PySpark notebooks. To get started with our example notebooks import the following databricks archive:
 
-`https://mmlspark.blob.core.windows.net/dbcs/SynapseMLExamplesv0.11.2.dbc`
-
-### Microsoft Fabric
-
-In Microsoft Fabric notebooks please place the following in the first cell of your notebook. 
-
-- For Spark 3.3 Pools:
-
-```bash
-%%configure -f
-{
-  "name": "synapseml",
-  "conf": {
-      "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:0.11.2-spark3.3",
-      "spark.jars.repositories": "https://mmlspark.azureedge.net/maven",
-      "spark.jars.excludes": "org.scala-lang:scala-reflect,org.apache.spark:spark-tags_2.12,org.scalactic:scalactic_2.12,org.scalatest:scalatest_2.12,com.fasterxml.jackson.core:jackson-databind",
-      "spark.yarn.user.classpath.first": "true",
-      "spark.sql.parquet.enableVectorizedReader": "false"
-  }
-}
-```
-
-- For Spark 3.2 Pools:
-
-```bash
-%%configure -f
-{
-  "name": "synapseml",
-  "conf": {
-      "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:0.11.2,org.apache.spark:spark-avro_2.12:3.3.1",
-      "spark.jars.repositories": "https://mmlspark.azureedge.net/maven",
-      "spark.jars.excludes": "org.scala-lang:scala-reflect,org.apache.spark:spark-tags_2.12,org.scalactic:scalactic_2.12,org.scalatest:scalatest_2.12,com.fasterxml.jackson.core:jackson-databind",
-      "spark.yarn.user.classpath.first": "true",
-      "spark.sql.parquet.enableVectorizedReader": "false",
-      "spark.sql.legacy.replaceDatabricksSparkAvro.enabled": "true"
-  }
-}
-```
+`https://mmlspark.blob.core.windows.net/dbcs/SynapseMLExamplesv1.1.3.dbc`
 
 ### Python Standalone
 
@@ -186,7 +197,7 @@ the above example, or from python:
 ```python
 import pyspark
 spark = pyspark.sql.SparkSession.builder.appName("MyApp") \
-            .config("spark.jars.packages", "com.microsoft.azure:synapseml_2.12:0.11.2") \
+            .config("spark.jars.packages", "com.microsoft.azure:synapseml_2.12:1.1.3") \
             .getOrCreate()
 import synapse.ml
 ```
@@ -197,9 +208,9 @@ SynapseML can be conveniently installed on existing Spark clusters via the
 `--packages` option, examples:
 
 ```bash
-spark-shell --packages com.microsoft.azure:synapseml_2.12:0.11.2
-pyspark --packages com.microsoft.azure:synapseml_2.12:0.11.2
-spark-submit --packages com.microsoft.azure:synapseml_2.12:0.11.2 MyApp.jar
+spark-shell --packages com.microsoft.azure:synapseml_2.12:1.1.3
+pyspark --packages com.microsoft.azure:synapseml_2.12:1.1.3
+spark-submit --packages com.microsoft.azure:synapseml_2.12:1.1.3 MyApp.jar
 ```
 
 ### SBT
@@ -208,7 +219,7 @@ If you are building a Spark application in Scala, add the following lines to
 your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.microsoft.azure" % "synapseml_2.12" % "0.11.2"
+libraryDependencies += "com.microsoft.azure" % "synapseml_2.12" % "1.1.3"
 ```
 
 ### Apache Livy and HDInsight
@@ -222,7 +233,7 @@ Excluding certain packages from the library may be necessary due to current issu
 {
     "name": "synapseml",
     "conf": {
-        "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:0.11.2",
+        "spark.jars.packages": "com.microsoft.azure:synapseml_2.12:1.1.3",
         "spark.jars.excludes": "org.scala-lang:scala-reflect,org.apache.spark:spark-tags_2.12,org.scalactic:scalactic_2.12,org.scalatest:scalatest_2.12,com.fasterxml.jackson.core:jackson-databind"
     }
 }
@@ -238,30 +249,25 @@ docker run -it -p 8888:8888 -e ACCEPT_EULA=yes mcr.microsoft.com/mmlspark/releas
 ```
 
 Navigate to <http://localhost:8888/> in your web browser to run the sample
-notebooks.  See the [documentation](website/docs/reference/docker.md) for more on Docker use.
+notebooks.  See the [documentation](https://microsoft.github.io/SynapseML/docs/Reference/Docker%20Setup/) for more on Docker use.
 
 > To read the EULA for using the docker image, run `docker run -it -p 8888:8888 mcr.microsoft.com/mmlspark/release eula`
 
 ### R
 
 To try out SynapseML using the R autogenerated wrappers [see our
-instructions](website/docs/reference/R-setup.md).  Note: This feature is still under development
+instructions](https://microsoft.github.io/SynapseML/docs/Reference/R%20Setup/).  Note: This feature is still under development
 and some necessary custom wrappers may be missing.
-
-### C# (.NET)
-
-To try out SynapseML with .NET, please follow the [.NET Installation Guide](website/docs/reference/dotnet-setup.md).
-Please note that some classes including the `AzureSearchWriter`, `DiagnosticInfo`, `UDPyFParam`, `ParamSpaceParam`, `BallTreeParam`, `ConditionalBallTreeParam`, `LightGBMBoosterParam` are still under development and not exposed in .NET yet.
 
 ### Building from source
 
 SynapseML has recently transitioned to a new build infrastructure.
-For detailed developer docs please see the [Developer Readme](website/docs/reference/developer-readme.md)
+For detailed developer docs please see the [Developer Readme](https://microsoft.github.io/SynapseML/docs/Reference/Developer%20Setup/)
 
 If you are an existing synapsemldeveloper, you will need to reconfigure your
 development setup. We now support platform independent development and
 better integrate with intellij and SBT.
- If you encounter issues please reach out to our support email!
+ If you encounter issues please reach out to our support email! 
 
 ## Papers
 
@@ -272,6 +278,8 @@ better integrate with intellij and SBT.
 - [MMLSpark: Unifying Machine Learning Ecosystems at Massive Scales](https://arxiv.org/abs/1810.08744)
 
 - [Flexible and Scalable Deep Learning with SynapseML](https://arxiv.org/abs/1804.04031)
+
+- [Large-Scale Automatic Audiobook Creation](https://arxiv.org/abs/2309.03926) 
 
 ## Learn More
 
@@ -306,7 +314,7 @@ better integrate with intellij and SBT.
 This project has adopted the [Microsoft Open Source Code of Conduct].  For more
 information see the [Code of Conduct FAQ] or contact
 [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional
-questions or comments.
+questions or comments. 
 
 [Microsoft Open Source Code of Conduct]: https://opensource.microsoft.com/codeofconduct/
 
@@ -321,11 +329,11 @@ Issue](https://help.github.com/articles/creating-an-issue/).
 
 - [Vowpal Wabbit](https://github.com/VowpalWabbit/vowpal_wabbit)
 
-- [LightGBM](https://github.com/Microsoft/LightGBM)
+- [LightGBM](https://github.com/lightgbm-org/LightGBM)
 
 - [DMTK: Microsoft Distributed Machine Learning Toolkit](https://github.com/Microsoft/DMTK)
 
-- [Recommenders](https://github.com/Microsoft/Recommenders)
+- [Recommenders](https://github.com/recommenders-team/Recommenders)
 
 - [JPMML-SparkML plugin for converting SynapseML LightGBM models to PMML](https://github.com/alipay/jpmml-sparkml-lightgbm)
 

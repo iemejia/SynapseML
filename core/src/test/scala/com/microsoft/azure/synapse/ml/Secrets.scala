@@ -47,8 +47,15 @@ object Secrets {
     secretJson.parseJson.asJsObject().fields("value").convertTo[String]
   }
 
+  def getAccessToken(reqResource: String): String = {
+    println(s"[info] token for perms: $reqResource from $AccountString")
+    val json = exec(s"az account get-access-token --resource $reqResource --output json")
+    json.parseJson.asJsObject().fields("accessToken").convertTo[String]
+  }
+
   lazy val CognitiveApiKey: String = getSecret("cognitive-api-key")
-  lazy val OpenAIApiKey: String = getSecret("openai-api-key")
+  lazy val OpenAIApiKey: String = getSecret("openai-api-key-2")
+  lazy val AIFoundryApiKey: String = getSecret("synapseml-ai-foundry-resource-key")
 
   lazy val CustomSpeechApiKey: String = getSecret("custom-speech-api-key")
   lazy val ConversationTranscriptionUrl: String = getSecret("conversation-transcription-url")
@@ -56,20 +63,16 @@ object Secrets {
 
   lazy val AnomalyApiKey: String = getSecret("anomaly-api-key")
   lazy val AzureSearchKey: String = getSecret("azure-search-key")
-  lazy val BingSearchKey: String = getSecret("bing-search-key")
   lazy val TranslatorKey: String = getSecret("translator-key")
   lazy val AzureMapsKey: String = getSecret("azuremaps-api-key")
   lazy val PowerbiURL: String = getSecret("powerbi-url")
   lazy val AdbToken: String = getSecret("adb-token")
-  lazy val SynapseStorageKey: String = getSecret("synapse-storage-key")
-  lazy val SynapseSpnKey: String = getSecret("synapse-spn-key")
+
   lazy val MADTestStorageKey: String = getSecret("madtest-storage-key")
 
   lazy val ArtifactStore: String = getSecret("synapse-artifact-store")
   lazy val Platform: String = getSecret("synapse-platform")
   lazy val AadResource: String = getSecret("synapse-internal-aad-resource")
-  lazy val ServiceConnectionSecret: String = getSecret("service-connection-secret")
-  lazy val ServicePrincipalClientId: String = getSecret("service-principal-clientId")
 
-  lazy val SecretRegexpFile: String = getSecret("secret-regexp-file")
+  lazy val LanguageApiKey: String = getSecret("language-api-key")
 }

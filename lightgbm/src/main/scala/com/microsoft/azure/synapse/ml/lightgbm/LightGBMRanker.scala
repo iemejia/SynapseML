@@ -4,9 +4,9 @@
 package com.microsoft.azure.synapse.ml.lightgbm
 
 import com.microsoft.azure.synapse.ml.lightgbm.booster.LightGBMBooster
-import com.microsoft.azure.synapse.ml.lightgbm.params.{
-  BaseTrainParams, LightGBMModelParams, LightGBMPredictionParams, RankerTrainParams}
-import com.microsoft.azure.synapse.ml.logging.SynapseMLLogging
+import com.microsoft.azure.synapse.ml.lightgbm.params.{BaseTrainParams, LightGBMModelParams,
+  LightGBMPredictionParams, RankerTrainParams}
+import com.microsoft.azure.synapse.ml.logging.{FeatureNames, SynapseMLLogging}
 import org.apache.spark.ml.linalg.Vector
 import org.apache.spark.ml.param._
 import org.apache.spark.ml.util._
@@ -19,14 +19,14 @@ object LightGBMRanker extends DefaultParamsReadable[LightGBMRanker]
 
 /** Trains a LightGBMRanker model, a fast, distributed, high performance gradient boosting
   * framework based on decision tree algorithms.
-  * For more information please see here: https://github.com/Microsoft/LightGBM.
-  * For parameter information see here: https://github.com/Microsoft/LightGBM/blob/master/docs/Parameters.rst
+  * For more information please see here: https://github.com/lightgbm-org/LightGBM.
+  * For parameter information see here: https://github.com/lightgbm-org/LightGBM/blob/master/docs/Parameters.rst
   * @param uid The unique ID.
   */
 class LightGBMRanker(override val uid: String)
   extends Ranker[Vector, LightGBMRanker, LightGBMRankerModel]
     with LightGBMBase[LightGBMRankerModel] with SynapseMLLogging {
-  logClass()
+  logClass(FeatureNames.LightGBM)
 
   def this() = this(Identifiable.randomUID("LightGBMRanker"))
 
@@ -127,7 +127,7 @@ class LightGBMRankerModel(override val uid: String)
     with LightGBMModelMethods
     with LightGBMPredictionParams
     with ComplexParamsWritable with SynapseMLLogging {
-  logClass()
+  logClass(FeatureNames.LightGBM)
 
   def this() = this(Identifiable.randomUID("LightGBMRankerModel"))
 

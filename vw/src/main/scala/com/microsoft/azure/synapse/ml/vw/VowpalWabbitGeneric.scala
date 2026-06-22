@@ -5,11 +5,11 @@ package com.microsoft.azure.synapse.ml.vw
 
 import com.microsoft.azure.synapse.ml.codegen.Wrappable
 import com.microsoft.azure.synapse.ml.core.contracts.HasInputCol
-import com.microsoft.azure.synapse.ml.logging.SynapseMLLogging
+import com.microsoft.azure.synapse.ml.logging.{FeatureNames, SynapseMLLogging}
 import org.apache.spark.ml.{ComplexParamsReadable, ComplexParamsWritable, Estimator, Model}
 import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.util.Identifiable
-import org.apache.spark.sql.catalyst.encoders.RowEncoder
+import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
 import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession, functions => F}
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
 
@@ -21,7 +21,7 @@ class VowpalWabbitGeneric(override val uid: String)
     with VowpalWabbitBaseLearner
     with HasInputCol
     with SynapseMLLogging {
-  logClass()
+  logClass(FeatureNames.VowpalWabbit)
 
   override protected lazy val pyInternalWrapper = true
 
@@ -71,7 +71,7 @@ class VowpalWabbitGeneric(override val uid: String)
   }
 
   protected def train(dataset: Dataset[_]): VowpalWabbitGenericModel = {
-    logTrain({
+    logFit({
       val model = new VowpalWabbitGenericModel(uid)
         .setInputCol(getInputCol)
 
@@ -87,7 +87,7 @@ class VowpalWabbitGenericModel(override val uid: String)
     with VowpalWabbitBaseModel
     with HasInputCol
     with ComplexParamsWritable with Wrappable with SynapseMLLogging {
-  logClass()
+  logClass(FeatureNames.VowpalWabbit)
 
   override protected lazy val pyInternalWrapper = true
 
@@ -105,7 +105,7 @@ class VowpalWabbitGenericModel(override val uid: String)
       val inputColIdx = df.schema.fieldIndex(getInputCol)
 
       val predictToSeq = VowpalWabbitPrediction.getPredictionFunc(vw)
-      val rowEncoder = RowEncoder(schemaForPredictionType)
+      val rowEncoder = ExpressionEncoder(schemaForPredictionType)
 
       df.mapPartitions(inputRows => {
         inputRows.map { row => {
